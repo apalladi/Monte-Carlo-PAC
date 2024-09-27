@@ -28,15 +28,6 @@ def simulate_single_investment(data, n_years, starting_point, verbose=False):
     float
         The annualized net return of the investment over the simulated period,
         expressed as a percentage.
-
-    Example:
-    --------
-    >>> simulate_single_investment(stock_data, 5, 0, verbose=True)
-    final capital 2400 €
-    final value 3100 €
-    gross return 29.17 %
-    net return 21.58 %
-    net return per year 3.98 %
     """
     final_point = starting_point + int(252 * n_years)
 
@@ -70,3 +61,50 @@ def simulate_single_investment(data, n_years, starting_point, verbose=False):
         print("net return per year", round(net_return_per_year, 2), "%")
 
     return net_return_per_year
+
+
+def simulate_multiple_investments(data, n_years, n_simulations):
+    """
+    Simulates multiple periodic investment strategies over random starting points.
+
+    This function runs multiple simulations of a periodic investment strategy over
+    historical stock data. It randomly selects starting points from the data and
+    simulates the investment for the specified number of years, using the
+    `simulate_single_investment` function. The goal is to generate a list of returns
+    from different simulated investment scenarios.
+
+    Parameters:
+    -----------
+    data : pandas.DataFrame
+        A DataFrame containing historical stock prices, where the first column represents
+        the daily closing prices, and the index represents the dates.
+    n_years : int
+        The number of years over which to simulate each investment.
+    n_simulations : int
+        The number of investment simulations to run, each starting from a random point
+        in the data.
+
+    Returns:
+    --------
+    list
+        A list of annualized net returns for each simulation, where each entry is
+        the result of a single simulated investment over `n_years`.
+    """
+
+    if n_simulations > len(data) / 2:
+        print(
+            "WARNING: the number of simulation is too high compared to \
+        the dimension of the time-series"
+        )
+        print("The suggested number of simulation is", int(len(data) / 2))
+
+    max_final_point = len(data) - int(252 * n_years)
+    extracted_starting_points = np.random.choice(
+        np.arange(0, max_final_point), size=n_simulations, replace=False
+    )
+    returns_list = []
+
+    for starting_point in extracted_starting_points:
+        returns_list.append(simulate_single_investment(data, n_years, starting_point))
+
+    return returns_list
