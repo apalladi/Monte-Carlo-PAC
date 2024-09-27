@@ -1,5 +1,37 @@
-import numpy as np
+"""
+Investment Simulation Module
 
+This module provides functionality to simulate periodic investment strategies
+and compute summary statistics based on historical stock data. It includes
+functions to simulate single or multiple investments over a given time period
+and compute the resulting returns. Additionally, it supports running simulations
+across various investment durations and summarizing the outcomes.
+
+Functions:
+----------
+simulate_single_investment(data, n_years, starting_point, verbose=False):
+    Simulates a single periodic investment strategy over a specified number of years.
+
+simulate_multiple_investments(data, n_years, n_simulations):
+    Runs multiple investment simulations with different starting points and
+    returns a list of annualized net returns.
+
+simulate_multiple_durations(data, years_grid, n_simulations):
+    Simulates investments for a range of durations and computes summary statistics
+    for each duration based on multiple simulations.
+
+Dependencies:
+-------------
+- numpy (imported as np): Used for numerical operations.
+- tqdm: Used to show progress bars during simulations.
+- src.stats.compute_summary_stats: A custom function for calculating summary statistics
+  from simulated returns.
+"""
+
+
+import numpy as np
+from tqdm import tqdm
+from src.stats import compute_summary_stats
 
 def simulate_single_investment(data, n_years, starting_point, verbose=False):
     """
@@ -108,3 +140,50 @@ def simulate_multiple_investments(data, n_years, n_simulations):
         returns_list.append(simulate_single_investment(data, n_years, starting_point))
 
     return returns_list
+
+
+def simulate_multiple_durations(data, years_grid, n_simulations):
+    """
+    Simulates periodic investments across multiple investment durations
+    and computes summary statistics.
+
+    This function runs multiple investment simulations for each duration specified in `years_grid`.
+    For each duration, it performs `n_simulations`
+    using the `simulate_multiple_investments` function,
+    and then computes summary statistics for the resulting returns
+    using the `compute_summary_stats` function.
+    The results are stored as an array of summary statistics for each investment duration.
+
+    Parameters:
+    -----------
+    data : pandas.DataFrame
+        A DataFrame containing historical stock prices, where the first column represents the daily
+        closing prices, and the index represents the dates.
+    years_grid : list or array-like
+        A list or array specifying the different durations (in years)
+        over which to simulate the investments.
+    n_simulations : int
+        The number of investment simulations to run for each duration in `years_grid`.
+
+    Returns:
+    --------
+    numpy.ndarray
+        An array where each element contains the summary statistics
+        for a particular duration in `years_grid`.
+        Each element is the result of applying `compute_summary_stats` on the simulated returns.
+
+    Example:
+    --------
+    >>> years_grid = [5, 10, 15]
+    >>> simulate_multiple_durations(stock_data, years_grid, 100)
+    array([[min_return, max_return, median_return, prob_non_negative, prob_greater_than_inflation],
+           [min_return, max_return, median_return, prob_non_negative, prob_greater_than_inflation],
+           [min_return, max_return, median_return, prob_non_negative, prob_greater_than_inflation]])
+    """
+    summary_results = []
+
+    for i in tqdm(range(len(years_grid))):
+        returns_list = simulate_multiple_investments(data, years_grid[i], n_simulations)
+        summary_results.append(compute_summary_stats(returns_list))
+
+    return np.array(summary_results)

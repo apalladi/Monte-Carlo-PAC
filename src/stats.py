@@ -7,13 +7,13 @@ and returns exceeding a specified threshold (e.g., inflation).
 
 Functions:
 ----------
-get_summary_stats(returns_list):
+compute_summary_stats(returns_list):
     Calculates summary statistics for a list of investment returns.
 """
 
 import numpy as np
 
-def get_summary_stats(returns_list):
+def compute_summary_stats(returns_list):
     """
     Calculates summary statistics from a list of investment returns.
 
