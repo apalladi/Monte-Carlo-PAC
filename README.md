@@ -73,9 +73,29 @@ This module provides functionality to simulate periodic investment strategies an
 - `simulate_multiple_investments(data, n_years, n_simulations)`: Runs multiple investment simulations with different starting points and returns a list of annualized net returns.
 - `simulate_multiple_durations(data, years_grid, n_simulations)`: Simulates investments for a range of durations and computes summary statistics for each duration based on multiple simulations.
 
-**Dependencies:**
--------------
-- `numpy` (imported as np): Used for numerical operations.
-- `tqdm`: Used to show progress bars during simulations.
-- `src.stats.compute_summary_stats`: A custom function for calculating summary statistics from simulated returns.
+
+### 3.3 Stats Module
+
+**This module provides functionality to analyze investment returns.**
+
+It includes a function to compute summary statistics from a list of investment returns, including minimum, maximum, median returns, and probabilities of non-negative returns and returns exceeding a specified threshold (e.g., inflation).
+
+**Functions:**
+----------
+- `compute_summary_stats(returns_list)`: Calculates summary statistics for a list of investment returns.
+
+### 3.4 Plot Module
+
+**This module provides a function for visualizing investment simulation results.**
+
+It generates plots that illustrate the median return and the probability of positive returns over various investment durations.
+
+**Function:**
+---------
+- `show_results(years_grid, results, title, show_figure=True, save_figure=False)`: Plots simulation results, optionally saving the figure.
+
+**Disclaimer:**
+---------------
+This repository does not contain any financial advice or recommendations of any kind. The simulations provided are based solely on historical data and do not possess predictive power for future investments. Users are encouraged to conduct their own research and consult with a financial advisor before making any investment decisions.
+
 
