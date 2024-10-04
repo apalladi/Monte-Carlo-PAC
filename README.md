@@ -33,12 +33,38 @@ conda activate pac-monte-carlo
 
 Now you are ready to start working with the project and run simulations!
 
+## 3. Quick Start Notebook
 
-## 3. Technical Details
+To get started quickly with the investment simulations, you can refer to the Jupyter Notebook located in the [Notebooks/QuickStart.ipynb](Notebooks/QuickStart.ipynb). This notebook demonstrates how to use the core functionalities of the repository with an example based on the S&P 500 Total Return Index.
+
+In this notebook, you will find the following key functions being utilized:
+
+```
+# Import historical data for S&P 500 Total Return starting from January 1, 1988
+df = import_data('^SP500TR', starting_date='1988-01-01')
+```
+
+```
+# Simulate investments across multiple durations
+results = simulate_multiple_durations(data=df,
+                                      years_grid=years_grid,
+                                      n_simulations=100)
+```
+
+```
+# Show simulation results and save the figure
+show_results(years_grid,
+             results, 
+             title="Simulations based on S&P 500 Total Return, in periods between 1988 and today",
+             save_figure="results/QuickStart.png")
+```
+This Notebook will guide you through the process of importing data, running simulations, and visualizing the results, allowing you to quickly explore the investment strategies.
+
+## 4. Technical Details
 
 The repository is structured as follows. There are 4 modules in the `src` folder.
 
-### 3.1 Data Module
+### 4.1 Data Module
 
 This module provides functions to retrieve and process historical stock price data from Yahoo Finance.
 
@@ -61,7 +87,7 @@ df = generate_df_from_list(['AAPL', 'MSFT'], '2020-01-01')
 print(df.head())
 ```
 
-### 3.2 Simulation Module
+### 4.2 Simulation Module
 
 **Investment Simulation Module**
 
@@ -74,7 +100,7 @@ This module provides functionality to simulate periodic investment strategies an
 - `simulate_multiple_durations(data, years_grid, n_simulations)`: Simulates investments for a range of durations and computes summary statistics for each duration based on multiple simulations.
 
 
-### 3.3 Stats Module
+### 4.3 Stats Module
 
 **This module provides functionality to analyze investment returns.**
 
@@ -84,7 +110,7 @@ It includes a function to compute summary statistics from a list of investment r
 ----------
 - `compute_summary_stats(returns_list)`: Calculates summary statistics for a list of investment returns.
 
-### 3.4 Plot Module
+### 4.4 Plot Module
 
 **This module provides a function for visualizing investment simulation results.**
 
