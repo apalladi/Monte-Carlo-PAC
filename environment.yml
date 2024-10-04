@@ -1,0 +1,14 @@
+name: pac-monte-carlo
+channels:
+  - defaults
+dependencies:
+  - python=3.9
+  - numpy
+  - matplotlib
+  - pandas
+  - pandas-datareader
+  - tqdm
+  - pip
+  - pip:
+    - yfinance==0.2.40
+    - jupyterlab
