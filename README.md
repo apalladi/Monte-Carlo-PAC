@@ -32,3 +32,50 @@ conda activate pac-monte-carlo
 ```
 
 Now you are ready to start working with the project and run simulations!
+
+
+## 3. Technical Details
+
+The repository is structured as follows. There are 4 modules in the `src` folder.
+
+### 3.1 Data Module
+
+This module provides functions to retrieve and process historical stock price data from Yahoo Finance.
+
+The module includes two primary functions:
+1. `import_data`: Retrieves historical daily closing prices for a specific stock ticker.
+2. `generate_df_from_list`: Generates a DataFrame of historical closing prices for multiple stock tickers.
+
+Both functions rely on Yahoo Finance as the data source and use `pandas` for data manipulation. The data can be fetched starting from a given date up to the current date. The resulting DataFrames are indexed by date and contain only the closing price for each stock ticker.
+
+**Functions:**
+----------
+- `import_data(ticker, starting_date)`: Retrieves historical closing prices for a specific stock ticker.
+- `generate_df_from_list(list_tickers, starting_time)`: Retrieves and combines historical closing prices for a list of stock tickers into a single DataFrame.
+
+**Example usage:**
+--------------
+```python
+# Import historical data for Apple and Microsoft starting from January 1, 2020
+df = generate_df_from_list(['AAPL', 'MSFT'], '2020-01-01')
+print(df.head())
+```
+
+### 3.2 Simulation Module
+
+**Investment Simulation Module**
+
+This module provides functionality to simulate periodic investment strategies and compute summary statistics based on historical stock data. It includes functions to simulate single or multiple investments over a given time period and compute the resulting returns. Additionally, it supports running simulations across various investment durations and summarizing the outcomes.
+
+**Functions:**
+----------
+- `simulate_single_investment(data, n_years, starting_point, verbose=False)`: Simulates a single periodic investment strategy over a specified number of years.
+- `simulate_multiple_investments(data, n_years, n_simulations)`: Runs multiple investment simulations with different starting points and returns a list of annualized net returns.
+- `simulate_multiple_durations(data, years_grid, n_simulations)`: Simulates investments for a range of durations and computes summary statistics for each duration based on multiple simulations.
+
+**Dependencies:**
+-------------
+- `numpy` (imported as np): Used for numerical operations.
+- `tqdm`: Used to show progress bars during simulations.
+- `src.stats.compute_summary_stats`: A custom function for calculating summary statistics from simulated returns.
+
