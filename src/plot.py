@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 
-def show_results(years_grid, results, title, save_figure=False):
+def show_results(years_grid, results, title, show_figure=True, save_figure=False):
     """
     Visualizes and compares the results of simulated investment returns over multiple durations.
 
@@ -23,6 +23,8 @@ def show_results(years_grid, results, title, save_figure=False):
     all simulated returns (min to max) over 1000 simulations.
     2. The probability of achieving a positive nominal net return, as well as the probability of
        achieving a positive real net return, accounting for a 2% inflation rate.
+    
+    By default, the figure is displayed. You can deactive it by setting show_figure = False.
 
     The function optionally saves the figure to a file
     if `save_figure` is provided as a string (filename).
@@ -102,5 +104,6 @@ def show_results(years_grid, results, title, save_figure=False):
         plt.savefig(save_figure, dpi=300, bbox_inches="tight")
     else:
         raise ValueError("save_figure can be False or equal to a string")
-
-    plt.show()
+    
+    if show_figure:
+        plt.show()
