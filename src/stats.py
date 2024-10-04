@@ -13,6 +13,7 @@ compute_summary_stats(returns_list):
 
 import numpy as np
 
+
 def compute_summary_stats(returns_list):
     """
     Calculates summary statistics from a list of investment returns.

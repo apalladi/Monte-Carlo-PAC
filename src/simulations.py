@@ -33,6 +33,7 @@ import numpy as np
 from tqdm import tqdm
 from src.stats import compute_summary_stats
 
+
 def simulate_single_investment(data, n_years, starting_point, verbose=False):
     """
     Simulates a periodic investment strategy in a stock over a specified time period.
