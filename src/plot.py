@@ -67,7 +67,7 @@ def show_results(years_grid, results, title, show_figure=True, save_figure=False
         results[1:, 1],
         results[1:, 0],
         alpha=0.5,
-        label="returns of all simulations \n(1000 sim. for each duration)",
+        label="returns of all simulations",
     )
     plt.grid()
     plt.ylabel("Yearly net return")
