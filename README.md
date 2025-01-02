@@ -19,7 +19,8 @@ cd Monte-Carlo-PAC
 ## 2. Installing and Activating the Environment
 To set up the Conda environment with all required dependencies, follow these steps:
 
-1. Make sure you have Conda installed on your system.
+1. Make sure you have Conda installed on your system.  If not, please check the 
+[related page](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
 2. Create the environment using the provided `environment.yml` file:
 ```
@@ -30,6 +31,14 @@ conda env create -f environment.yml
 ```
 conda activate pac-monte-carlo
 ```
+
+4. Access your Jupyter Notebooks using 
+[Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/getting_started/starting.html).
+Simply run in your terminal:
+```
+jupyter lab
+```
+and JupyterLab will open automatically in your browser.
 
 Now you are ready to start working with the project and run simulations!
 
