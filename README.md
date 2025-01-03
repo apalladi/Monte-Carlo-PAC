@@ -19,7 +19,8 @@ cd Monte-Carlo-PAC
 ## 2. Installing and Activating the Environment
 To set up the Conda environment with all required dependencies, follow these steps:
 
-1. Make sure you have Conda installed on your system.
+1. Make sure you have Conda installed on your system.  If not, please check the 
+[related page](https://docs.conda.io/projects/conda/en/latest/user-guide/install/index.html).
 
 2. Create the environment using the provided `environment.yml` file:
 ```
@@ -30,6 +31,14 @@ conda env create -f environment.yml
 ```
 conda activate pac-monte-carlo
 ```
+
+4. Access your Jupyter Notebooks using 
+[Jupyter Lab](https://jupyterlab.readthedocs.io/en/latest/getting_started/starting.html).
+Simply run in your terminal:
+```
+jupyter lab
+```
+and JupyterLab will open automatically in your browser.
 
 Now you are ready to start working with the project and run simulations!
 
@@ -60,13 +69,15 @@ show_results(years_grid,
 ```
 This Notebook will guide you through the process of importing data, running simulations, and visualizing the results, allowing you to quickly explore the investment strategies.
 
+More examples can be found in the `Notebooks` folder.
+
 ## 4. Technical Details
 
 The repository is structured as follows. There are 4 modules in the `src` folder.
 
 ### 4.1 Data Module
 
-This module provides functions to retrieve and process historical stock price data from Yahoo Finance.
+**This module provides functions to retrieve and process historical stock price data from Yahoo Finance.**
 
 The module includes two primary functions:
 1. `import_data`: Retrieves historical daily closing prices for a specific stock ticker.
@@ -95,9 +106,20 @@ This module provides functionality to simulate periodic investment strategies an
 
 **Functions:**
 ----------
-- `simulate_single_investment(data, n_years, starting_point, verbose=False)`: Simulates a single periodic investment strategy over a specified number of years.
-- `simulate_multiple_investments(data, n_years, n_simulations)`: Runs multiple investment simulations with different starting points and returns a list of annualized net returns.
-- `simulate_multiple_durations(data, years_grid, n_simulations)`: Simulates investments for a range of durations and computes summary statistics for each duration based on multiple simulations.
+- `simulate_single_investment(data, n_years, starting_point, verbose=False)`:  
+  Simulates a single periodic investment strategy over a specified number of years.
+
+- `simulate_portfolio_returns(data, n_years, starting_point, portfolio_composition, verbose=False)`:  
+  Simulates periodic investments for a specific portfolio of assets and calculates the net return after a given number of years.  
+  The portfolio is defined by `portfolio_composition`.
+
+- `simulate_multiple_investments(data, n_years, n_simulations, portfolio_composition=None)`:  
+  Runs multiple investment simulations with different starting points and returns a list of annualized net returns.  
+  If `portfolio_composition` is provided, the returns are calculated using a portfolio of assets.
+
+- `simulate_multiple_durations(data, years_grid, n_simulations, portfolio_composition=None)`:  
+  Simulates investments for a range of durations and computes summary statistics for each duration based on multiple simulations.  
+  If `portfolio_composition` is provided, the simulations are based on the specified portfolio of assets.
 
 
 ### 4.3 Stats Module

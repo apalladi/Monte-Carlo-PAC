@@ -29,6 +29,7 @@ print(df.head())
 
 import datetime as dt
 import yfinance as yfin
+import pandas as pd
 from pandas_datareader import data as pdr
 
 
@@ -44,7 +45,7 @@ def import_data(ticker, starting_date):
     Parameters:
     -----------
     ticker : str
-        The stock ticker symbol (e.g., "AAPL" for Apple).
+        The stock ticker symbol (e.g., "AAPL" for Apple). You can find them on https://finance.yahoo.com/lookup/.
     starting_date : str or datetime
         The starting date for the data retrieval in string format (YYYY-MM-DD)
         or as a datetime object.
@@ -108,12 +109,8 @@ def generate_df_from_list(list_tickers, starting_date):
     2020-01-06   299.80   159.03
     ...
     """
-    for i, ticker in enumerate(list_tickers):
-        if i == 0:
-            data = import_data(ticker, starting_date)
-        else:
-            new_data = import_data(ticker, starting_date)
-            data = data.join(new_data, on=data.index)
+    single_dfs = [import_data(ticker, starting_date) for ticker in list_tickers]
+    data = pd.concat(single_dfs, axis=1)
 
     data.fillna(inplace=True, method="ffill")
     data.columns = list_tickers
