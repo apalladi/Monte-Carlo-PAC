@@ -109,13 +109,6 @@ def generate_df_from_list(list_tickers, starting_date):
     2020-01-06   299.80   159.03
     ...
     """
-    # for i, ticker in enumerate(list_tickers):
-    #     if i == 0:
-    #         data = import_data(ticker, starting_date)
-    #     else:
-    #         new_data = import_data(ticker, starting_date)
-    #         data = data.join(new_data, on=data.index)
-
     single_dfs = [import_data(ticker, starting_date) for ticker in list_tickers]
     data = pd.concat(single_dfs, axis=1)
 
